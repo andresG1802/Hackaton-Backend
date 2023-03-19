@@ -63,8 +63,6 @@ export const postUsuario = async( req: Request , res: Response ) => {
         })    
     }
 
-
-
 }
 
 export const putUsuario = async( req: Request , res: Response ) => {
@@ -109,8 +107,6 @@ export const deleteUsuario = async( req: Request , res: Response ) => {
     await usuario.update({ estado: false });
 
     // await usuario.destroy();
-
-
     res.json(usuario);
 }
 

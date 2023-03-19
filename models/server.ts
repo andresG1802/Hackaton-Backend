@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import userRoutes from '../routes/usuario';
 import cors from 'cors';
+import productRoutes from '../routes/productos';
 
 import db from '../db/connection';
 
@@ -10,7 +11,8 @@ class Server {
     private app: Application;
     private port: string;
     private apiPaths = {
-        usuarios: '/api/usuarios'
+        usuarios: '/api/usuarios',
+        productos:'/api/productos'
     }
 
     constructor() {
@@ -31,9 +33,8 @@ class Server {
             console.log('Database online');
 
         } catch (error) {
-            throw new Error( error );
+            console.log('Error al conectar la base de datos');
         }
-
     }
 
     middlewares() {
@@ -50,7 +51,8 @@ class Server {
 
 
     routes() {
-        this.app.use( this.apiPaths.usuarios, userRoutes )
+        this.app.use( this.apiPaths.usuarios, userRoutes );
+        this.app.use(this.apiPaths.productos,productRoutes);
     }
 
 

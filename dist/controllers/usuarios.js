@@ -45,7 +45,7 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 msg: 'Ya existe un usuario con el email ' + body.email
             });
         }
-        const usuario = new usuario_1.default(body);
+        const usuario = usuario_1.default.build(body);
         yield usuario.save();
         res.json(usuario);
     }

@@ -15,13 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const usuario_1 = __importDefault(require("../routes/usuario"));
 const cors_1 = __importDefault(require("cors"));
+const productos_1 = __importDefault(require("../routes/productos"));
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
         this.apiPaths = {
-            usuarios: '/api/usuarios'
+            usuarios: '/api/usuarios',
+            productos: '/api/productos'
         };
-        this.app = express_1.default();
+        this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
         // Métodos iniciales
         this.dbConnection();
@@ -35,13 +37,13 @@ class Server {
                 console.log('Database online');
             }
             catch (error) {
-                throw new Error(error);
+                console.log('Error al conectar la base de datos');
             }
         });
     }
     middlewares() {
         // CORS
-        this.app.use(cors_1.default());
+        this.app.use((0, cors_1.default)());
         // Lectura del body
         this.app.use(express_1.default.json());
         // Carpeta pública
@@ -49,6 +51,7 @@ class Server {
     }
     routes() {
         this.app.use(this.apiPaths.usuarios, usuario_1.default);
+        this.app.use(this.apiPaths.productos, productos_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {
