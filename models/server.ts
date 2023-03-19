@@ -2,7 +2,7 @@ import express, { Application } from 'express';
 import userRoutes from '../routes/usuario';
 import cors from 'cors';
 import productRoutes from '../routes/productos';
-
+import ventaRoutes from'../routes/venta';
 import db from '../db/connection';
 
 
@@ -12,7 +12,8 @@ class Server {
     private port: string;
     private apiPaths = {
         usuarios: '/api/usuarios',
-        productos:'/api/productos'
+        productos:'/api/productos',
+        ventas:'/api/ventas',
     }
 
     constructor() {
@@ -49,19 +50,16 @@ class Server {
         this.app.use( express.static('public') );
     }
 
-
     routes() {
         this.app.use( this.apiPaths.usuarios, userRoutes );
         this.app.use(this.apiPaths.productos,productRoutes);
+        this.app.use(this.apiPaths.ventas,ventaRoutes);
     }
-
-
     listen() {
         this.app.listen( this.port, () => {
             console.log('Servidor corriendo en puerto ' + this.port );
         })
     }
-
 }
 
 export default Server;
