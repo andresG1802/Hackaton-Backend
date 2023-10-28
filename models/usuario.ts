@@ -1,16 +1,25 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes , Sequelize} from 'sequelize';
 import db from '../db/connection';
 
-const Usuario = db.define('Usuario', {
-    nombre: {
+const Usuario = db.define('usuarios', {
+    usuarioID: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    NombreUsuario: {
         type: DataTypes.STRING
     },
-    email: {
+    CorreoElectronico: {
         type: DataTypes.STRING
     },
-    estado: {
-        type: DataTypes.BOOLEAN
+    Contrasena:{
+        type:DataTypes.STRING
     },
+    FechaRegistro: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    }
 },
 {
     //para que corra el modelo 
